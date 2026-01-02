@@ -17,6 +17,8 @@ namespace GruntExecutor
 {
     class Grunt
     {
+        private static bool ToBool(string flag) => flag == "1";
+
         public static void Execute(string CovenantURI, string CovenantCertHash, string GUID, Aes SessionKey)
         {
             try
@@ -31,8 +33,8 @@ namespace GruntExecutor
 				string ProfileHttpGetResponse = @"{{REPLACE_PROFILE_HTTP_GET_RESPONSE}}".Replace(Environment.NewLine, "\n");
 				string ProfileHttpPostRequest = @"{{REPLACE_PROFILE_HTTP_POST_REQUEST}}".Replace(Environment.NewLine, "\n");
 				string ProfileHttpPostResponse = @"{{REPLACE_PROFILE_HTTP_POST_RESPONSE}}".Replace(Environment.NewLine, "\n");
-                bool ValidateCert = bool.Parse(@"{{REPLACE_VALIDATE_CERT}}");
-                bool UseCertPinning = bool.Parse(@"{{REPLACE_USE_CERT_PINNING}}");
+                bool ValidateCert = ToBool(@"{{REPLACE_VALIDATE_CERT}}");
+                bool UseCertPinning = ToBool(@"{{REPLACE_USE_CERT_PINNING}}");
 
                 string Hostname = Dns.GetHostName();
                 string IPAddress = Dns.GetHostAddresses(Hostname)[0].ToString();
